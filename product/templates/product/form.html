@@ -1,0 +1,29 @@
+{% extends 'core/base.html' %}
+
+{% block title %}{{ title }}{% endblock title %}
+
+{% block content %}
+<div class="p-10 lg:p-20 text-center">
+  <h1 class="text-2xl lg:text-6xl text-white">{{ title }}</h1>
+</div>
+
+<form method="POST" action="." class="max-w-[400px] px-4 mx-auto mb-4" enctype='multipart/form-data'>
+  {% csrf_token %}
+
+  <div class="flex flex-col gap-4">
+    {{ form.as_p }}
+  </div>
+
+  {% if form.errors %}
+    {% for field in form %}
+      {% for error in field.errors %}
+        <div class="mb-5 p-4 rounded-xl bg-red-300 text-white">
+          <p>{{ error|escape }}</p>
+        </div>
+      {% endfor %}
+    {% endfor %}
+  {% endif %}
+
+  <button class="w-full mt-4 px-5 py-3 rounded-xl text-white bg-slate-600 hover:bg-slate-800">Criar produto</button>
+</form>
+{% endblock %}
